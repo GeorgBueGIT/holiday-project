@@ -1,36 +1,54 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
-import './test.scss';
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  const [input, setInput] = useState('');
+  const [response, setResponse] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    setLoading(true);
+    setResponse('');
+
+    try {
+      const res = await fetch('http://localhost:3009/api/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ prompt: input }),
+      })
+
+      const data = await res.json();
+
+      setResponse(data.message);
+    } catch (error) {
+      console.error('Fehler beim Senden der Nachricht:', error);
+    } finally {
+      setLoading(false);
+    }
+
+    setInput('');
+  };
 
   return (
-    <>
-      <div>
-        <a className="test" href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          placeholder="Type your message..."
+        />
+      </form>
+
+      {loading && <p>Loading...</p>}
+      {response && <div><strong>Response:</strong> {response}</div>}
+    </div>
+  );
 }
 
 export default App
