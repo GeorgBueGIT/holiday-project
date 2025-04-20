@@ -1,0 +1,4 @@
+[build]
+  functions = "netlify/functions"
+  publish = "frontend/dist"
+  node_version = "18"

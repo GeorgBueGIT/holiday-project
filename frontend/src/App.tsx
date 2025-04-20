@@ -14,7 +14,7 @@ function App() {
     setResponse('');
 
     try {
-      const res = await fetch('http://localhost:3009/api/chat', {
+      const res = await fetch('/.netlify/functions/chat', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
