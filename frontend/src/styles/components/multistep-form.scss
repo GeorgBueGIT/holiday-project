@@ -1,0 +1,26 @@
+@use "/src/styles/variables" as *;
+
+#multistep-form {
+    background-color: $grey-900;
+    border-radius: 10px;
+
+    h2 {
+        color: $grey-100;
+    }
+
+    button {
+        background-color: $grey-100;
+        color: $grey-900;
+        border-radius: 10px;
+        border: none;
+
+        &.selected {
+            background-color: $grey-800;
+            color: $grey-100;
+        }
+    }
+
+    button:hover {
+        background-color: $grey-400;
+    }
+}
