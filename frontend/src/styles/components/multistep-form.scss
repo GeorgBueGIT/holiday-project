@@ -3,6 +3,7 @@
 #multistep-form {
     background-color: $grey-900;
     border-radius: 10px;
+    width: 50vw;
 
     h2 {
         color: $grey-100;
@@ -22,5 +23,21 @@
 
     button:hover {
         background-color: $grey-400;
+    }
+
+    #result {
+        color: $grey-100;
+    }
+}
+
+@media (max-width: 992px) {
+    #multistep-form {
+        width: 60vw;
+    }
+}
+
+@media (max-width: 768px) {
+    #multistep-form {
+        width: 100%;
     }
 }
